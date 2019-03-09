@@ -41,12 +41,12 @@ open class UserAPI {
      */
     open class func accessTokenWithRequestBuilder() -> RequestBuilder<TokenResponse> {
         let path = "/api/User/AccessToken"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -80,12 +80,12 @@ open class UserAPI {
      */
     open class func configWithRequestBuilder() -> RequestBuilder<ConfigResponse> {
         let path = "/api/User/Config"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<ConfigResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ConfigResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -123,12 +123,12 @@ open class UserAPI {
      */
     open class func linkDeviceWithRequestBuilder(model: DeviceRequest? = nil) -> RequestBuilder<TokenResponse> {
         let path = "/api/User/Device"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
 
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -167,12 +167,12 @@ open class UserAPI {
         let providerPreEscape = "\(provider)"
         let providerPostEscape = providerPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{provider}", with: providerPostEscape, options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<LinkLoginResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<LinkLoginResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -210,12 +210,12 @@ open class UserAPI {
      */
     open class func loginWithRequestBuilder(model: UserLoginRequest? = nil) -> RequestBuilder<TokenResponse> {
         let path = "/api/User/Login"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
 
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -253,12 +253,12 @@ open class UserAPI {
      */
     open class func registerWithRequestBuilder(model: UserRegisterRequest? = nil) -> RequestBuilder<TokenResponse> {
         let path = "/api/User/Register"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
 
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
@@ -299,12 +299,12 @@ open class UserAPI {
         let phoneNumberPreEscape = "\(phoneNumber)"
         let phoneNumberPostEscape = phoneNumberPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
         path = path.replacingOccurrences(of: "{phoneNumber}", with: phoneNumberPostEscape, options: .literal, range: nil)
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
@@ -342,12 +342,12 @@ open class UserAPI {
      */
     open class func verifySmsWithRequestBuilder(model: VerifyPhoneRequest? = nil) -> RequestBuilder<TokenResponse> {
         let path = "/api/User/VerifySmsCode"
-        let URLString = SwaggerClientAPI.basePath + path
+        let URLString = ios-kinny-login-api-clientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
 
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<TokenResponse>.Type = SwaggerClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<TokenResponse>.Type = ios-kinny-login-api-clientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }

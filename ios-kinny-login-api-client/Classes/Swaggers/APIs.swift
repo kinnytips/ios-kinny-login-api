@@ -6,7 +6,7 @@
 
 import Foundation
 
-open class SwaggerClientAPI {
+open class ios-kinny-login-api-clientAPI {
     open static var basePath = "https://virtserver.swaggerhub.com/chancity9/kinny-login-api/1"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
@@ -31,7 +31,7 @@ open class RequestBuilder<T> {
         self.isBody = isBody
         self.headers = headers
 
-        addHeaders(SwaggerClientAPI.customHeaders)
+        addHeaders(ios-kinny-login-api-clientAPI.customHeaders)
     }
 
     open func addHeaders(_ aHeaders:[String:String]) {
@@ -50,7 +50,7 @@ open class RequestBuilder<T> {
     }
 
     open func addCredential() -> Self {
-        self.credential = SwaggerClientAPI.credential
+        self.credential = ios-kinny-login-api-clientAPI.credential
         return self
     }
 }
