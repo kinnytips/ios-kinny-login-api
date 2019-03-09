@@ -13,4 +13,5 @@ Pod::Spec.new do |s|
   s.documentation_url = 'https://github.com/kinnytips/ios-kinny-login-api-client'
   s.source_files = 'ios-kinny-login-api-client/Classes/**/*.swift'
   s.dependency 'Alamofire', '~> 4.5.0'
+  s.summary = 'Kinny iOS login API'
 end
