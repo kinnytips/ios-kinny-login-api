@@ -53,17 +53,18 @@ open class UserAPI {
 
     /**
 
+     - parameter model: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func config(completion: @escaping ((_ data: ConfigResponse?,_ error: Error?) -> Void)) {
-        configWithRequestBuilder().execute { (response, error) -> Void in
+    open class func addExternalLogin(model: ExternalLoginRequest? = nil, completion: @escaping ((_ data: ExternalLoginResponse?,_ error: Error?) -> Void)) {
+        addExternalLoginWithRequestBuilder(model: model).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
 
 
     /**
-     - GET /api/User/Config
+     - POST /api/User/ExternalLogin
      - API Key:
        - type: apiKey Authorization 
        - name: Bearer
@@ -72,22 +73,23 @@ open class UserAPI {
     "code" : "code",
     "message" : "message"
   },
-  "userId" : "userId",
-  "linkedExternalLogins" : [ "linkedExternalLogins", "linkedExternalLogins" ]
+  "href" : "href"
 }}]
+     
+     - parameter model: (body)  (optional)
 
-     - returns: RequestBuilder<ConfigResponse> 
+     - returns: RequestBuilder<ExternalLoginResponse> 
      */
-    open class func configWithRequestBuilder() -> RequestBuilder<ConfigResponse> {
-        let path = "/api/User/Config"
+    open class func addExternalLoginWithRequestBuilder(model: ExternalLoginRequest? = nil) -> RequestBuilder<ExternalLoginResponse> {
+        let path = "/api/User/ExternalLogin"
         let URLString = KinnyLoginApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
+
         let url = URLComponents(string: URLString)
 
-        let requestBuilder: RequestBuilder<ConfigResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
+        let requestBuilder: RequestBuilder<ExternalLoginResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
@@ -135,50 +137,6 @@ open class UserAPI {
 
     /**
 
-     - parameter provider: (path)  
-     - parameter completion: completion handler to receive the data and the error objects
-     */
-    open class func linkLogin(provider: String, completion: @escaping ((_ data: LinkLoginResponse?,_ error: Error?) -> Void)) {
-        linkLoginWithRequestBuilder(provider: provider).execute { (response, error) -> Void in
-            completion(response?.body, error)
-        }
-    }
-
-
-    /**
-     - GET /api/User/LinkLogin/{provider}
-     - API Key:
-       - type: apiKey Authorization 
-       - name: Bearer
-     - examples: [{contentType=application/json, example={
-  "apiError" : {
-    "code" : "code",
-    "message" : "message"
-  },
-  "href" : "href"
-}}]
-     
-     - parameter provider: (path)  
-
-     - returns: RequestBuilder<LinkLoginResponse> 
-     */
-    open class func linkLoginWithRequestBuilder(provider: String) -> RequestBuilder<LinkLoginResponse> {
-        var path = "/api/User/LinkLogin/{provider}"
-        let providerPreEscape = "\(provider)"
-        let providerPostEscape = providerPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{provider}", with: providerPostEscape, options: .literal, range: nil)
-        let URLString = KinnyLoginApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
-        let url = URLComponents(string: URLString)
-
-        let requestBuilder: RequestBuilder<LinkLoginResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
-
-        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
-    }
-
-    /**
-
      - parameter model: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
@@ -218,6 +176,71 @@ open class UserAPI {
         let requestBuilder: RequestBuilder<TokenResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
 
         return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func profileInformation(completion: @escaping ((_ data: ProfileInformationResponse?,_ error: Error?) -> Void)) {
+        profileInformationWithRequestBuilder().execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - GET /api/User/ProfileInformation
+     - API Key:
+       - type: apiKey Authorization 
+       - name: Bearer
+     - examples: [{contentType=application/json, example={
+  "externalLogins" : [ {
+    "loginProvider" : "loginProvider",
+    "providerKey" : "providerKey"
+  }, {
+    "loginProvider" : "loginProvider",
+    "providerKey" : "providerKey"
+  } ],
+  "apiError" : {
+    "code" : "code",
+    "message" : "message"
+  },
+  "devices" : [ {
+    "appVersion" : "appVersion",
+    "lastLoginUtcDateTime" : "2000-01-23T04:56:07.000+00:00",
+    "lastLoginIpAddress" : "lastLoginIpAddress",
+    "deviceOs" : "deviceOs",
+    "id" : "id",
+    "deviceOsVersion" : "deviceOsVersion"
+  }, {
+    "appVersion" : "appVersion",
+    "lastLoginUtcDateTime" : "2000-01-23T04:56:07.000+00:00",
+    "lastLoginIpAddress" : "lastLoginIpAddress",
+    "deviceOs" : "deviceOs",
+    "id" : "id",
+    "deviceOsVersion" : "deviceOsVersion"
+  } ],
+  "user" : {
+    "phoneNumber" : "phoneNumber",
+    "userId" : "userId",
+    "email" : "email",
+    "username" : "username"
+  }
+}}]
+
+     - returns: RequestBuilder<ProfileInformationResponse> 
+     */
+    open class func profileInformationWithRequestBuilder() -> RequestBuilder<ProfileInformationResponse> {
+        let path = "/api/User/ProfileInformation"
+        let URLString = KinnyLoginApiClientAPI.basePath + path
+        let parameters: [String:Any]? = nil
+        
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<ProfileInformationResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "GET", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
     }
 
     /**
@@ -265,18 +288,98 @@ open class UserAPI {
 
     /**
 
-     - parameter phoneNumber: (path)  
+     - parameter model: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func sendSms(phoneNumber: String, completion: @escaping ((_ data: TokenResponse?,_ error: Error?) -> Void)) {
-        sendSmsWithRequestBuilder(phoneNumber: phoneNumber).execute { (response, error) -> Void in
+    open class func removeDevice(model: RemoveDeviceRequest? = nil, completion: @escaping ((_ data: BaseResponse?,_ error: Error?) -> Void)) {
+        removeDeviceWithRequestBuilder(model: model).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
     }
 
 
     /**
-     - POST /api/User/SendSmsCode/{phoneNumber}
+     - DELETE /api/User/RemoveDevice
+     - API Key:
+       - type: apiKey Authorization 
+       - name: Bearer
+     - examples: [{contentType=application/json, example={
+  "apiError" : {
+    "code" : "code",
+    "message" : "message"
+  }
+}}]
+     
+     - parameter model: (body)  (optional)
+
+     - returns: RequestBuilder<BaseResponse> 
+     */
+    open class func removeDeviceWithRequestBuilder(model: RemoveDeviceRequest? = nil) -> RequestBuilder<BaseResponse> {
+        let path = "/api/User/RemoveDevice"
+        let URLString = KinnyLoginApiClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<BaseResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
+     - parameter model: (body)  (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func removeExternalLogin(model: RemoveExternalLoginRequest? = nil, completion: @escaping ((_ data: BaseResponse?,_ error: Error?) -> Void)) {
+        removeExternalLoginWithRequestBuilder(model: model).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - DELETE /api/User/ExternalLogin
+     - API Key:
+       - type: apiKey Authorization 
+       - name: Bearer
+     - examples: [{contentType=application/json, example={
+  "apiError" : {
+    "code" : "code",
+    "message" : "message"
+  }
+}}]
+     
+     - parameter model: (body)  (optional)
+
+     - returns: RequestBuilder<BaseResponse> 
+     */
+    open class func removeExternalLoginWithRequestBuilder(model: RemoveExternalLoginRequest? = nil) -> RequestBuilder<BaseResponse> {
+        let path = "/api/User/ExternalLogin"
+        let URLString = KinnyLoginApiClientAPI.basePath + path
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
+
+        let url = URLComponents(string: URLString)
+
+        let requestBuilder: RequestBuilder<BaseResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
+
+        return requestBuilder.init(method: "DELETE", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
+    }
+
+    /**
+
+     - parameter model: (body)  (optional)
+     - parameter completion: completion handler to receive the data and the error objects
+     */
+    open class func sendSms(model: SendSmsRequest? = nil, completion: @escaping ((_ data: TokenResponse?,_ error: Error?) -> Void)) {
+        sendSmsWithRequestBuilder(model: model).execute { (response, error) -> Void in
+            completion(response?.body, error)
+        }
+    }
+
+
+    /**
+     - POST /api/User/SendSmsCode
      - API Key:
        - type: apiKey Authorization 
        - name: Bearer
@@ -290,23 +393,20 @@ open class UserAPI {
   "token" : "token"
 }}]
      
-     - parameter phoneNumber: (path)  
+     - parameter model: (body)  (optional)
 
      - returns: RequestBuilder<TokenResponse> 
      */
-    open class func sendSmsWithRequestBuilder(phoneNumber: String) -> RequestBuilder<TokenResponse> {
-        var path = "/api/User/SendSmsCode/{phoneNumber}"
-        let phoneNumberPreEscape = "\(phoneNumber)"
-        let phoneNumberPostEscape = phoneNumberPreEscape.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? ""
-        path = path.replacingOccurrences(of: "{phoneNumber}", with: phoneNumberPostEscape, options: .literal, range: nil)
+    open class func sendSmsWithRequestBuilder(model: SendSmsRequest? = nil) -> RequestBuilder<TokenResponse> {
+        let path = "/api/User/SendSmsCode"
         let URLString = KinnyLoginApiClientAPI.basePath + path
-        let parameters: [String:Any]? = nil
-        
+        let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)
+
         let url = URLComponents(string: URLString)
 
         let requestBuilder: RequestBuilder<TokenResponse>.Type = KinnyLoginApiClientAPI.requestBuilderFactory.getBuilder()
 
-        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: false)
+        return requestBuilder.init(method: "POST", URLString: (url?.string ?? URLString), parameters: parameters, isBody: true)
     }
 
     /**
@@ -314,7 +414,7 @@ open class UserAPI {
      - parameter model: (body)  (optional)
      - parameter completion: completion handler to receive the data and the error objects
      */
-    open class func verifySms(model: VerifyPhoneRequest? = nil, completion: @escaping ((_ data: TokenResponse?,_ error: Error?) -> Void)) {
+    open class func verifySms(model: VerifySmsRequest? = nil, completion: @escaping ((_ data: TokenResponse?,_ error: Error?) -> Void)) {
         verifySmsWithRequestBuilder(model: model).execute { (response, error) -> Void in
             completion(response?.body, error)
         }
@@ -340,7 +440,7 @@ open class UserAPI {
 
      - returns: RequestBuilder<TokenResponse> 
      */
-    open class func verifySmsWithRequestBuilder(model: VerifyPhoneRequest? = nil) -> RequestBuilder<TokenResponse> {
+    open class func verifySmsWithRequestBuilder(model: VerifySmsRequest? = nil) -> RequestBuilder<TokenResponse> {
         let path = "/api/User/VerifySmsCode"
         let URLString = KinnyLoginApiClientAPI.basePath + path
         let parameters = JSONEncodingHelper.encodingParameters(forEncodableObject: model)

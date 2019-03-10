@@ -7,7 +7,7 @@
 import Foundation
 
 open class KinnyLoginApiClientAPI {
-    open static var basePath = "https://virtserver.swaggerhub.com/chancity9/kinny-login-api/1"
+    open static var basePath = "https://localhost"
     open static var credential: URLCredential?
     open static var customHeaders: [String:String] = [:]
     open static var requestBuilderFactory: RequestBuilderFactory = AlamofireRequestBuilderFactory()

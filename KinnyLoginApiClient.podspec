@@ -7,6 +7,7 @@ Pod::Spec.new do |s|
   s.source = { :git => 'git@github.com:swagger-api/swagger-mustache.git', :tag => 'v1.0.0' }
   s.authors = 'kinnytips'
   s.social_media_url = 'https://kinny.io'
+  s.docset_url = ''
   s.license = 'Proprietary'
   s.homepage = 'https://kinny.io'
   s.summary = 'KinnyLoginApiClient'
